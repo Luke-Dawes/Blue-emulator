@@ -35,7 +35,7 @@ class CPU {
 		//is just the top 4 bits.
 	}
 
-	uint8_t getData()
+	uint16_t getData()
 	{
 		return CIR & 0x0FFF;
 		//this applies a mask ignoring the top 4 bits to
