@@ -55,10 +55,32 @@ class CPU {
 	void doAND(uint8_t tick) { return; }
 	void doIOR(uint8_t tick) { return; }
 	void doNOT(uint8_t tick) { return; }
-	void doLDA(uint8_t tick) { return; }
+
+	void doLDA(uint8_t tick) { 
+		
+		if (tick == 8 && state == FETCH) {
+			state = EXECUTE;
+			MAR = CIR;
+		}
+		else if (tick == 2) {
+			accumulator = 0;
+		}
+		else if (tick == 3) {
+			MDR = 0;
+		}
+		else if (tick == 5) {
+			accumulator = MDR;
+		}
+		else if (tick == 8 && state == EXECUTE) {
+			state == FETCH;
+			MAR = PC;
+		}
+	}
+
 	void doSTA(uint8_t tick) { return; }
 	void doSRJ(uint8_t tick) { return; }
 	void doJMA(uint8_t tick) { return; }
+
 	void doJMP(uint8_t tick) { 
 		if (tick == 6) {
 			PC = 0;
