@@ -77,7 +77,25 @@ class CPU {
 		}
 	}
 
-	void doSTA(uint8_t tick) { return; }
+	void doSTA(uint8_t tick) {
+
+		if (tick == 8 && state == FETCH) {
+			state = EXECUTE;
+			MAR = CIR;
+		}
+		else if (tick == 4) {
+			MDR = 0;
+		}
+		else if (tick == 5) {
+			MDR = accumulator;
+		}
+
+		else if (tick == 8 && state == EXECUTE) {
+			state == FETCH;
+			MAR = PC;
+		}
+	}
+
 	void doSRJ(uint8_t tick) { return; }
 	void doJMA(uint8_t tick) { return; }
 
